@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react'
 
-const SignUpForm = () => {
+const SignUpForm = ({ setToken }) => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
-
-  useEffect(() => {
-    console.log(username);
-  },[username]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +20,7 @@ const SignUpForm = () => {
         })
       });
       const data = await response.json();
-      console.log(data);
+      setToken(data.token);
     } catch (err) {
       setError(err);
     }
