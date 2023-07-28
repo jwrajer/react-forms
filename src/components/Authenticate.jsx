@@ -15,6 +15,7 @@ const Authenticate = ({ token }) => {
       });
       const data = await response.json();
       setSuccessMessage(data.message);
+      console.log(data);
     } catch (err) {
       setError(err.message)
     }
