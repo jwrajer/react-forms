@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 
 const SignUpForm = ({ setToken }) => {
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,6 +22,7 @@ const SignUpForm = ({ setToken }) => {
       });
       const data = await response.json();
       setToken(data.token);
+      setSuccessMessage(data.message);
     } catch (err) {
       setError(err);
     }
@@ -43,6 +45,7 @@ const SignUpForm = ({ setToken }) => {
         ></input>
         <button> Submit </button>
       </form>
+      { successMessage && <h3>{successMessage}</h3>}
     </>
   )
 }

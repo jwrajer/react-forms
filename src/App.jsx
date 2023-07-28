@@ -6,9 +6,6 @@ import Authenticate from './components/Authenticate'
 function App() {
   const [token, setToken] = useState(null)
 
-  useEffect(() => {
-    console.log(token);
-  },[token]);
 
   return (
     <>
