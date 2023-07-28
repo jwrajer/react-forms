@@ -8,14 +8,43 @@ const SignUpForm = () => {
 
   useEffect(() => {
     console.log(username);
-  },[username])
+  },[username]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(`https://fsa-jwt-practice.herokuapp.com/signup`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      setError(err);
+    }
+  }
 
   return (
     <>
       <h2>Sign Up</h2>
-      <form>
-        <input value={username} onChange={(event) => setUsername(event.target.value)}></input>
-        <input value={password} onChange={(event) => setPassword(event.target.value)}></input>
+      { error && <p>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input 
+          placeholder='Username'
+          value={username} 
+          onChange={(event) => setUsername(event.target.value)}
+        ></input>
+        <input 
+          placeholder='Password'
+          value={password} 
+          onChange={(event) => setPassword(event.target.value)}
+        ></input>
         <button> Submit </button>
       </form>
     </>
